@@ -1,6 +1,7 @@
 package com.gestion.stock.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 
@@ -11,13 +12,13 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "articles")
 @SQLDelete(sql = "UPDATE articles SET state = 'DELETED' WHERE id=?", check = ResultCheckStyle.COUNT)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class Article extends AbstractEntity {
 
-    @Column(name = "cod")
+    @Column(name = "code")
     private String code;
 
     @Column(name = "designation")

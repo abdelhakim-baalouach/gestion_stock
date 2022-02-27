@@ -1,6 +1,7 @@
 package com.gestion.stock.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "utilisateurs")
 @SQLDelete(sql = "UPDATE utilisateurs SET state = 'DELETED' WHERE id=?", check = ResultCheckStyle.COUNT)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -29,6 +30,9 @@ public class Utilisateur extends AbstractEntity {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "telephone")
+    private String telephone;
 
     @Column(name = "username")
     private String username;

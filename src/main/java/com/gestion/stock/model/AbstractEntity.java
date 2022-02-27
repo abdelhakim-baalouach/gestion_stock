@@ -3,6 +3,7 @@ package com.gestion.stock.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gestion.stock.util.StateEnum;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 import java.time.OffsetDateTime;
 
 @Data
+@SuperBuilder
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity implements Serializable {

@@ -1,6 +1,7 @@
 package com.gestion.stock.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "commandes_client")
 @SQLDelete(sql = "UPDATE commandes_client SET state = 'DELETED' WHERE id=?", check = ResultCheckStyle.COUNT)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

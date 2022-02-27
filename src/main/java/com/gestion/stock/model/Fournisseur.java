@@ -1,6 +1,7 @@
 package com.gestion.stock.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 
@@ -9,13 +10,13 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "fournissuers")
-@SQLDelete(sql = "UPDATE fournissuers SET state = 'DELETED' WHERE id=?", check = ResultCheckStyle.COUNT)
-@Builder
+@Table(name = "fournisseur")
+@SQLDelete(sql = "UPDATE fournisseur SET state = 'DELETED' WHERE id=?", check = ResultCheckStyle.COUNT)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Fournissuer extends AbstractEntity {
+public class Fournisseur extends AbstractEntity {
 
     @Column(name = "nom")
     private String nom;
