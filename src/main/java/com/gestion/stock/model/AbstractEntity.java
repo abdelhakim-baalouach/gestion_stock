@@ -1,7 +1,7 @@
 package com.gestion.stock.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gestion.stock.util.StateEnum;
+import com.gestion.stock.utils.StateEnum;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;

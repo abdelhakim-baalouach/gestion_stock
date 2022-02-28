@@ -1,8 +1,8 @@
 package com.gestion.stock.dto;
 
 import com.gestion.stock.model.MvtStk;
-import com.gestion.stock.util.StateEnum;
-import com.gestion.stock.util.TypeMvtStk;
+import com.gestion.stock.utils.StateEnum;
+import com.gestion.stock.utils.TypeMvtStk;
 import lombok.Builder;
 import lombok.Data;
 

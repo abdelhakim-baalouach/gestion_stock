@@ -1,6 +1,6 @@
 package com.gestion.stock.handlers;
 
-import com.gestion.stock.util.ErrorCodes;
+import com.gestion.stock.utils.ErrorCodes;
 import lombok.*;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.gestion.stock.model;
 
-import com.gestion.stock.util.TypeMvtStk;
+import com.gestion.stock.utils.TypeMvtStk;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ResultCheckStyle;

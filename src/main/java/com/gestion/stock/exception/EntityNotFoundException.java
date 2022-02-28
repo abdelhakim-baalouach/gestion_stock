@@ -1,6 +1,6 @@
 package com.gestion.stock.exception;
 
-import com.gestion.stock.util.ErrorCodes;
+import com.gestion.stock.utils.ErrorCodes;
 import lombok.Getter;
 
 public class EntityNotFoundException extends RuntimeException {

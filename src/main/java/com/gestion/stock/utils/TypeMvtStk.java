@@ -1,4 +1,4 @@
-package com.gestion.stock.util;
+package com.gestion.stock.utils;
 
 public enum TypeMvtStk {
     ENTREE,

@@ -2,7 +2,7 @@ package com.gestion.stock.dto;
 
 import com.gestion.stock.model.CommandeFournisseur;
 import com.gestion.stock.model.LigneCommandeFournisseur;
-import com.gestion.stock.util.StateEnum;
+import com.gestion.stock.utils.StateEnum;
 import lombok.Builder;
 import lombok.Data;
 

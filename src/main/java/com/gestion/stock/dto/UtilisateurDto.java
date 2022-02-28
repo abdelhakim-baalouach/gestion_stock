@@ -2,7 +2,7 @@ package com.gestion.stock.dto;
 
 import com.gestion.stock.model.Roles;
 import com.gestion.stock.model.Utilisateur;
-import com.gestion.stock.util.StateEnum;
+import com.gestion.stock.utils.StateEnum;
 import lombok.Builder;
 import lombok.Data;
 

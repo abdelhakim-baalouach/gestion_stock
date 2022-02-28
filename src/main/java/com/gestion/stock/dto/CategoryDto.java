@@ -2,7 +2,7 @@ package com.gestion.stock.dto;
 
 import com.gestion.stock.model.Article;
 import com.gestion.stock.model.Category;
-import com.gestion.stock.util.StateEnum;
+import com.gestion.stock.utils.StateEnum;
 import lombok.*;
 
 import java.util.List;
