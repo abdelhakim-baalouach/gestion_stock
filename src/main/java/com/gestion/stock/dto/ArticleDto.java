@@ -30,6 +30,8 @@ public class ArticleDto {
 
     private CategoryDto category;
 
+    private Integer idEntreprise;
+
     public ArticleDto fromEntity(Article article) {
         if (Objects.isNull(article)) {
             return null;
@@ -50,29 +52,31 @@ public class ArticleDto {
                                 .fromEntity(article.getCategory())
                 )
                 .state(category.getState())
+                .idEntreprise(article.getIdEntreprise())
                 .build();
     }
 
-    public Article toEntity(ArticleDto ArticleDto) {
-        if (Objects.isNull(ArticleDto)) {
+    public Article toEntity(ArticleDto articleDto) {
+        if (Objects.isNull(articleDto)) {
             return null;
         }
 
         return Article.builder()
-                .id(ArticleDto.getId())
-                .code(ArticleDto.getCode())
-                .designation(ArticleDto.getDesignation())
-                .prixUnitaireHt(ArticleDto.getPrixUnitaireHt())
-                .tauxTva(ArticleDto.getTauxTva())
-                .prixUnitaireTtc(ArticleDto.getPrixUnitaireTtc())
-                .photo(ArticleDto.getPhoto())
+                .id(articleDto.getId())
+                .code(articleDto.getCode())
+                .designation(articleDto.getDesignation())
+                .prixUnitaireHt(articleDto.getPrixUnitaireHt())
+                .tauxTva(articleDto.getTauxTva())
+                .prixUnitaireTtc(articleDto.getPrixUnitaireTtc())
+                .photo(articleDto.getPhoto())
                 .category(
                         CategoryDto
                         .builder()
                         .build()
-                        .toEntity(ArticleDto.getCategory())
+                        .toEntity(articleDto.getCategory())
                 )
-                .state(ArticleDto.getState())
+                .state(articleDto.getState())
+                .idEntreprise(articleDto.getIdEntreprise())
                 .build();
     }
 }

@@ -1,6 +1,5 @@
 package com.gestion.stock.dto;
 
-import com.gestion.stock.model.Roles;
 import com.gestion.stock.model.Utilisateur;
 import com.gestion.stock.utils.StateEnum;
 import lombok.Builder;
@@ -9,7 +8,6 @@ import lombok.Data;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -69,13 +67,6 @@ public class UtilisateurDto {
                                 .build()
                                 .fromEntity(utilisateur.getEntreprise())
                 )
-                .roles(
-                        utilisateur
-                                .getRoles()
-                                .stream()
-                                .map(this::getFromEntity)
-                                .collect(Collectors.toList())
-                )
                 .build();
     }
 
@@ -107,27 +98,6 @@ public class UtilisateurDto {
                                 .build()
                                 .toEntity(utilisateurDto.getEntreprise())
                 )
-                .roles(
-                        utilisateurDto
-                                .getRoles()
-                                .stream()
-                                .map(this::getToEntity)
-                                .collect(Collectors.toList())
-                )
                 .build();
-    }
-
-    private Roles getToEntity(RolesDto rolesDto) {
-        return RolesDto
-                .builder()
-                .build()
-                .toEntity(rolesDto);
-    }
-
-    private RolesDto getFromEntity(Roles roles) {
-        return RolesDto
-                .builder()
-                .build()
-                .fromEntity(roles);
     }
 }

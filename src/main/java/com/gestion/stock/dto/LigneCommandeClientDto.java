@@ -24,6 +24,8 @@ public class LigneCommandeClientDto {
 
     private CommandeClientDto commandeClient;
 
+    private Integer idEntreprise;
+
     public LigneCommandeClientDto fromEntity(LigneCommandeClient ligneCommandeClient) {
         if (Objects.isNull(ligneCommandeClient)) {
             return null;
@@ -32,6 +34,7 @@ public class LigneCommandeClientDto {
         return LigneCommandeClientDto.builder()
                 .id(ligneCommandeClient.getId())
                 .state(ligneCommandeClient.getState())
+                .idEntreprise(ligneCommandeClient.getIdEntreprise())
                 .quantite(ligneCommandeClient.getQuantite())
                 .prixUnitaire(ligneCommandeClient.getPrixUnitaire())
                 .article(
@@ -57,6 +60,7 @@ public class LigneCommandeClientDto {
         return LigneCommandeClient.builder()
                 .id(ligneCommandeClientDto.getId())
                 .state(ligneCommandeClientDto.getState())
+                .idEntreprise(ligneCommandeClientDto.getIdEntreprise())
                 .quantite(ligneCommandeClientDto.getQuantite())
                 .prixUnitaire(ligneCommandeClientDto.getPrixUnitaire())
                 .article(

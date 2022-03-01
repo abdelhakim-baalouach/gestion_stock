@@ -29,4 +29,7 @@ public class Category extends AbstractEntity {
 
     @OneToMany(mappedBy = "category")
     private List<Article> articles;
+
+    @Column(name = "entreprise_id")
+    private Integer idEntreprise;
 }

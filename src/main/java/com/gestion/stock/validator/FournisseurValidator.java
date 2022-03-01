@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class fournisseurValidator {
+public class FournisseurValidator {
 
     public static List<String> validate(FournisseurDto fournisseurDto) {
         List<String> errors = new ArrayList<>();

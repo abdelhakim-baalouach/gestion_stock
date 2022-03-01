@@ -22,6 +22,7 @@ public class VentesDto {
 
     private String commentaire;
 
+    private Integer idEntreprise;
 
     public VentesDto fromEntity(Ventes ventes) {
         if (Objects.isNull(ventes)) {
@@ -31,6 +32,7 @@ public class VentesDto {
         return VentesDto.builder()
                 .id(ventes.getId())
                 .state(ventes.getState())
+                .idEntreprise(ventes.getIdEntreprise())
                 .code(ventes.getCode())
                 .dateVente(ventes.getDateVente())
                 .commentaire(ventes.getCommentaire())
@@ -45,6 +47,7 @@ public class VentesDto {
         return Ventes.builder()
                 .id(ventesDto.getId())
                 .state(ventesDto.getState())
+                .idEntreprise(ventesDto.getIdEntreprise())
                 .code(ventesDto.getCode())
                 .dateVente(ventesDto.getDateVente())
                 .commentaire(ventesDto.getCommentaire())

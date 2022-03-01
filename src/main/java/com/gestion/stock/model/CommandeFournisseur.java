@@ -25,10 +25,13 @@ public class CommandeFournisseur extends AbstractEntity {
     @Column(name = "date_commande")
     private OffsetDateTime dateCommande;
 
+    @Column(name = "entreprise_id")
+    private Integer idEntreprise;
+
     @ManyToOne
     @JoinColumn(name = "fournisseur_id")
     private Fournisseur fournisseur;
 
-    @OneToMany(mappedBy = "commandeFournisseur")
+    @OneToMany(mappedBy = "commandeFournisseur", fetch = FetchType.LAZY)
     private List<LigneCommandeFournisseur> ligneCommandeFournisseurs;
 }

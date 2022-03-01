@@ -1,14 +1,12 @@
 package com.gestion.stock.dto;
 
 import com.gestion.stock.model.Entreprise;
-import com.gestion.stock.model.Utilisateur;
 import com.gestion.stock.utils.StateEnum;
 import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -57,13 +55,6 @@ public class EntrepriseDto {
                 .mail(entreprise.getMail())
                 .telephone(entreprise.getTelephone())
                 .siteWeb(entreprise.getSiteWeb())
-                .utilisateurs(
-                        entreprise
-                                .getUtilisateurs()
-                                .stream()
-                                .map(this::getFromEntity)
-                                .collect(Collectors.toList())
-                )
                 .build();
     }
 
@@ -88,27 +79,6 @@ public class EntrepriseDto {
                 .mail(entrepriseDto.getMail())
                 .telephone(entrepriseDto.getTelephone())
                 .siteWeb(entrepriseDto.getSiteWeb())
-                .utilisateurs(
-                        entrepriseDto
-                                .getUtilisateurs()
-                                .stream()
-                                .map(this::getToEntity)
-                                .collect(Collectors.toList())
-                )
                 .build();
-    }
-
-    private Utilisateur getToEntity(UtilisateurDto utilisateurDto) {
-        return UtilisateurDto
-                .builder()
-                .build()
-                .toEntity(utilisateurDto);
-    }
-
-    private UtilisateurDto getFromEntity(Utilisateur utilisateur) {
-        return UtilisateurDto
-                .builder()
-                .build()
-                .fromEntity(utilisateur);
     }
 }

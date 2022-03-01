@@ -36,26 +36,18 @@ public class ArticleServiceImpl implements ArticleService {
         return this.mapToArticleDto(article);
     }
 
-    private ArticleDto mapToArticleDto(Article article) {
-        return ArticleDto.builder()
-                .build()
-                .fromEntity(article);
-    }
-
     @Override
     public ArticleDto findById(Integer id) {
         if (Objects.isNull(id)) {
             log.error("ID article est null");
             return null;
         }
-
-        Article article = this.articleRepository
+        return this.articleRepository
                 .findByIdAndState_Active(id)
+                .map(this::mapToArticleDto)
                 .orElseThrow(
-                        () -> new EntityNotFoundException("Aucun article avac l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND)
+                        () -> new EntityNotFoundException("Aucun article avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND)
                 );
-
-        return this.mapToArticleDto(article);
     }
 
     @Override
@@ -64,14 +56,12 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("Code article est null");
             return null;
         }
-
-        Article article = this.articleRepository
+        return this.articleRepository
                 .findArticleByCodeAndState_Active(code)
+                .map(this::mapToArticleDto)
                 .orElseThrow(
-                        () -> new EntityNotFoundException("Aucun article avac le CODE = " + code + " n'ete trouve dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND)
+                        () -> new EntityNotFoundException("Aucun article avec le CODE = " + code + " n'ete trouve dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND)
                 );
-
-        return this.mapToArticleDto(article);
     }
 
     @Override
@@ -101,5 +91,11 @@ public class ArticleServiceImpl implements ArticleService {
         return ArticleDto.builder()
                 .build()
                 .toEntity(dto);
+    }
+
+    private ArticleDto mapToArticleDto(Article article) {
+        return ArticleDto.builder()
+                .build()
+                .fromEntity(article);
     }
 }

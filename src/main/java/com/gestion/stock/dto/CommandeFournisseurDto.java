@@ -1,7 +1,6 @@
 package com.gestion.stock.dto;
 
 import com.gestion.stock.model.CommandeFournisseur;
-import com.gestion.stock.model.LigneCommandeFournisseur;
 import com.gestion.stock.utils.StateEnum;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +8,6 @@ import lombok.Data;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -27,6 +25,8 @@ public class CommandeFournisseurDto {
 
     private List<LigneCommandeFournisseurDto> ligneCommandeFournisseurs;
 
+    private Integer idEntreprise;
+
     public CommandeFournisseurDto fromEntity(CommandeFournisseur commandeFournisseur) {
         if (Objects.isNull(commandeFournisseur)) {
             return null;
@@ -35,6 +35,7 @@ public class CommandeFournisseurDto {
         return CommandeFournisseurDto.builder()
                 .id(commandeFournisseur.getId())
                 .state(commandeFournisseur.getState())
+                .idEntreprise(commandeFournisseur.getIdEntreprise())
                 .code(commandeFournisseur.getCode())
                 .dateCommande(commandeFournisseur.getDateCommande())
                 .fournisseur(
@@ -42,13 +43,6 @@ public class CommandeFournisseurDto {
                                 .builder()
                                 .build()
                                 .fromEntity(commandeFournisseur.getFournisseur())
-                )
-                .ligneCommandeFournisseurs(
-                        commandeFournisseur
-                                .getLigneCommandeFournisseurs()
-                                .stream()
-                                .map(this::getFromEntity)
-                                .collect(Collectors.toList())
                 )
                 .build();
     }
@@ -61,6 +55,7 @@ public class CommandeFournisseurDto {
         return CommandeFournisseur.builder()
                 .id(commandeFournisseurDto.getId())
                 .state(commandeFournisseurDto.getState())
+                .idEntreprise(commandeFournisseurDto.getIdEntreprise())
                 .code(commandeFournisseurDto.getCode())
                 .dateCommande(commandeFournisseurDto.getDateCommande())
                 .fournisseur(
@@ -69,27 +64,6 @@ public class CommandeFournisseurDto {
                                 .build()
                                 .toEntity(commandeFournisseurDto.getFournisseur())
                 )
-                .ligneCommandeFournisseurs(
-                        commandeFournisseurDto
-                                .getLigneCommandeFournisseurs()
-                                .stream()
-                                .map(this::getToEntity)
-                                .collect(Collectors.toList())
-                )
                 .build();
-    }
-
-    private LigneCommandeFournisseur getToEntity(LigneCommandeFournisseurDto ligneCommandeFournisseurDto) {
-        return LigneCommandeFournisseurDto
-                .builder()
-                .build()
-                .toEntity(ligneCommandeFournisseurDto);
-    }
-
-    private LigneCommandeFournisseurDto getFromEntity(LigneCommandeFournisseur ligneCommandeFournisseur) {
-        return LigneCommandeFournisseurDto
-                .builder()
-                .build()
-                .fromEntity(ligneCommandeFournisseur);
     }
 }

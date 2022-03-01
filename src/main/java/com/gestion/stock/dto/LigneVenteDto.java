@@ -22,6 +22,8 @@ public class LigneVenteDto {
 
     private VentesDto ventes;
 
+    private Integer idEntreprise;
+
     public LigneVenteDto fromEntity(LigneVente ligneVente) {
         if (Objects.isNull(ligneVente)) {
             return null;
@@ -30,6 +32,7 @@ public class LigneVenteDto {
         return LigneVenteDto.builder()
                 .id(ligneVente.getId())
                 .state(ligneVente.getState())
+                .idEntreprise(ligneVente.getIdEntreprise())
                 .quantite(ligneVente.getQuantite())
                 .prixUnitaire(ligneVente.getPrixUnitaire())
                 .ventes(
@@ -49,6 +52,7 @@ public class LigneVenteDto {
         return LigneVente.builder()
                 .id(ligneVenteDto.getId())
                 .state(ligneVenteDto.getState())
+                .idEntreprise(ligneVenteDto.getIdEntreprise())
                 .quantite(ligneVenteDto.getQuantite())
                 .prixUnitaire(ligneVenteDto.getPrixUnitaire())
                 .ventes(

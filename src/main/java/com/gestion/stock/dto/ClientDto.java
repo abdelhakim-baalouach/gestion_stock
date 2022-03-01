@@ -1,14 +1,12 @@
 package com.gestion.stock.dto;
 
 import com.gestion.stock.model.Client;
-import com.gestion.stock.model.CommandeClient;
 import com.gestion.stock.utils.StateEnum;
 import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -30,6 +28,8 @@ public class ClientDto {
 
     private String telephone;
 
+    private Integer idEntreprise;
+
     private List<CommandeClientDto> commandeClients;
 
     public ClientDto fromEntity(Client client) {
@@ -50,13 +50,7 @@ public class ClientDto {
                 .photo(client.getPhoto())
                 .mail(client.getMail())
                 .telephone(client.getTelephone())
-                .commandeClients(
-                        client
-                                .getCommandeClients()
-                                .stream()
-                                .map(this::getFromEntity)
-                                .collect(Collectors.toList())
-                )
+                .idEntreprise(client.getIdEntreprise())
                 .build();
     }
 
@@ -78,27 +72,7 @@ public class ClientDto {
                 .photo(clientDto.getPhoto())
                 .mail(clientDto.getMail())
                 .telephone(clientDto.getTelephone())
-                .commandeClients(
-                        clientDto
-                                .getCommandeClients()
-                                .stream()
-                                .map(this::getToEntity)
-                                .collect(Collectors.toList())
-                )
+                .idEntreprise(clientDto.getIdEntreprise())
                 .build();
-    }
-
-    private CommandeClient getToEntity(CommandeClientDto commandeClientDto) {
-        return CommandeClientDto
-                .builder()
-                .build()
-                .toEntity(commandeClientDto);
-    }
-
-    private CommandeClientDto getFromEntity(CommandeClient commandeClient) {
-        return CommandeClientDto
-                .builder()
-                .build()
-                .fromEntity(commandeClient);
     }
 }

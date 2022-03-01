@@ -7,6 +7,7 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -36,7 +37,24 @@ public class Article extends AbstractEntity {
     @Column(name = "photo")
     private String photo;
 
+    @Column(name = "entreprise_id")
+    private Integer idEntreprise;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
+    private List<LigneVente> ligneVentes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
+    private List<LigneCommandeClient> ligneCommandeClients;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
+    private List<LigneCommandeFournisseur> ligneCommandeFournisseurs;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
+    private List<MvtStk> mvtStks;
+
+
 }

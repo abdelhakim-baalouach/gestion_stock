@@ -36,6 +36,9 @@ public class Client extends AbstractEntity {
     @Column(name = "telephone")
     private String telephone;
 
-    @OneToMany(mappedBy = "client")
+    @Column(name = "entreprise_id")
+    private Integer idEntreprise;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<CommandeClient> commandeClients;
 }
