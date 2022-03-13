@@ -22,6 +22,8 @@ public class LigneVenteDto {
 
     private VentesDto ventes;
 
+    private ArticleDto article;
+
     private Integer idEntreprise;
 
     public LigneVenteDto fromEntity(LigneVente ligneVente) {
@@ -35,6 +37,12 @@ public class LigneVenteDto {
                 .idEntreprise(ligneVente.getIdEntreprise())
                 .quantite(ligneVente.getQuantite())
                 .prixUnitaire(ligneVente.getPrixUnitaire())
+                .article(
+                        ArticleDto
+                                .builder()
+                                .build()
+                                .fromEntity(ligneVente.getArticle())
+                )
                 .ventes(
                         VentesDto
                                 .builder()
@@ -55,6 +63,12 @@ public class LigneVenteDto {
                 .idEntreprise(ligneVenteDto.getIdEntreprise())
                 .quantite(ligneVenteDto.getQuantite())
                 .prixUnitaire(ligneVenteDto.getPrixUnitaire())
+                .article(
+                        ArticleDto
+                                .builder()
+                                .build()
+                                .toEntity(ligneVenteDto.getArticle())
+                )
                 .ventes(
                         VentesDto
                                 .builder()

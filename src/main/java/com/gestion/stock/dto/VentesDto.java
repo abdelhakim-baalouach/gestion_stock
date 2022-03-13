@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Builder
@@ -23,6 +24,8 @@ public class VentesDto {
     private String commentaire;
 
     private Integer idEntreprise;
+
+    private List<LigneVenteDto> ligneVentes;
 
     public VentesDto fromEntity(Ventes ventes) {
         if (Objects.isNull(ventes)) {
