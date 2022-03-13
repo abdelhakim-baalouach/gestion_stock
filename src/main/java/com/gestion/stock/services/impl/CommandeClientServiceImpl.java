@@ -117,7 +117,7 @@ public class CommandeClientServiceImpl implements CommandeClientService {
                 .findCommandeClientByCodeAndState_Active(code)
                 .map(this::mapToCommandeClientDto)
                 .orElseThrow(
-                        () -> new EntityNotFoundException("Aucun commande client avec le CODE = " + code + " n'ete trouve dans la BDD", ErrorCodes.CATEGORY_NOT_FOUND)
+                        () -> new EntityNotFoundException("Aucun commande client avec le CODE = " + code + " n'ete trouve dans la BDD", ErrorCodes.COMMANDE_CLIENT_NOT_FOUND)
                 );
     }
 
