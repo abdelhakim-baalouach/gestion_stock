@@ -1,6 +1,5 @@
 package com.gestion.stock.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gestion.stock.utils.StateEnum;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
@@ -24,13 +23,11 @@ public class AbstractEntity implements Serializable {
 
     @CreatedDate
     @Column(name = "created_date", nullable = false)
-    @JsonIgnore
-    private OffsetDateTime createdDate;
+    private OffsetDateTime createdDate = OffsetDateTime.now();
 
     @LastModifiedDate
     @Column(name = "last_modified_date")
-    @JsonIgnore
-    private OffsetDateTime lastModifiedDate;
+    private OffsetDateTime lastModifiedDate = OffsetDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state")

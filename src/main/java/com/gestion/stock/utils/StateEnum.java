@@ -1,8 +1,8 @@
 package com.gestion.stock.utils;
 
 public enum StateEnum {
-    ARCHIVED,
     ACTIVE,
+    ARCHIVED,
     DELETED,
     HIDDEN,
     CANCEL,
