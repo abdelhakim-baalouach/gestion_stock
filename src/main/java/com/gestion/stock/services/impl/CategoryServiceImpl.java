@@ -7,6 +7,7 @@ import com.gestion.stock.model.Category;
 import com.gestion.stock.repository.CategoryRepository;
 import com.gestion.stock.services.CategoryService;
 import com.gestion.stock.utils.ErrorCodes;
+import com.gestion.stock.utils.StateEnum;
 import com.gestion.stock.validator.CategoryValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
             return null;
         }
         return  this.categoryRepository
-                .findByIdAndState_Active(id)
+                .findByIdAndState(id, StateEnum.ACTIVE)
                 .map(this::mapToCategoryDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun categorie avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.CATEGORY_NOT_FOUND)
@@ -57,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
             return null;
         }
         return this.categoryRepository
-                .findCategoryByCodeAndState_Active(code)
+                .findCategoryByCodeAndState(code, StateEnum.ACTIVE)
                 .map(this::mapToCategoryDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun categorie avec le CODE = " + code + " n'ete trouve dans la BDD", ErrorCodes.CATEGORY_NOT_FOUND)

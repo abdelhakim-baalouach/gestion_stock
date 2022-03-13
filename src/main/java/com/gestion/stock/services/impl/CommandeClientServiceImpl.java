@@ -14,6 +14,7 @@ import com.gestion.stock.repository.CommandeClientRepository;
 import com.gestion.stock.repository.LigneCommandeClientRepository;
 import com.gestion.stock.services.CommandeClientService;
 import com.gestion.stock.utils.ErrorCodes;
+import com.gestion.stock.utils.StateEnum;
 import com.gestion.stock.validator.CommandeClientValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class CommandeClientServiceImpl implements CommandeClientService {
     @Override
     public CommandeClientDto save(CommandeClientDto dto) {
         this.checkCommandeClientDtoValid(dto);
-        Optional<Client> client = this.clientRepository.findByIdAndState_Active(dto.getClient().getId());
+        Optional<Client> client = this.clientRepository.findByIdAndState(dto.getClient().getId(), StateEnum.ACTIVE);
         if (client.isEmpty()) {
             log.warn("Client avec ID {} n'ete trouve dans la BDD", dto.getClient().getId());
             throw new EntityNotFoundException("Aucun client avac l'ID = " +  dto.getClient().getId() + " n'ete trouve dans la BDD", ErrorCodes.CLIENT_NOT_FOUND);
@@ -59,7 +60,7 @@ public class CommandeClientServiceImpl implements CommandeClientService {
             dto.getLigneCommandeClients()
                     .forEach(ligneCommandeClientDto -> {
                         if (Objects.nonNull(ligneCommandeClientDto.getArticle())) {
-                            Optional<Article> article = this.articleRepository.findByIdAndState_Active(ligneCommandeClientDto.getArticle().getId());
+                            Optional<Article> article = this.articleRepository.findByIdAndState(ligneCommandeClientDto.getArticle().getId(), StateEnum.ACTIVE);
                             if (article.isEmpty()) {
                                 articleErrors.add("L'article avec l'ID " + ligneCommandeClientDto.getArticle().getId() + " n'existe pas");
                             }
@@ -100,7 +101,7 @@ public class CommandeClientServiceImpl implements CommandeClientService {
             return null;
         }
         return this.commandeClientRepository
-                .findByIdAndState_Active(id)
+                .findByIdAndState(id, StateEnum.ACTIVE)
                 .map(this::mapToCommandeClientDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun commande client avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.COMMANDE_CLIENT_NOT_FOUND)
@@ -114,7 +115,7 @@ public class CommandeClientServiceImpl implements CommandeClientService {
             return null;
         }
         return this.commandeClientRepository
-                .findCommandeClientByCodeAndState_Active(code)
+                .findCommandeClientByCodeAndState(code, StateEnum.ACTIVE)
                 .map(this::mapToCommandeClientDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun commande client avec le CODE = " + code + " n'ete trouve dans la BDD", ErrorCodes.COMMANDE_CLIENT_NOT_FOUND)

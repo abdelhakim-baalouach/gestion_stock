@@ -7,6 +7,7 @@ import com.gestion.stock.model.Fournisseur;
 import com.gestion.stock.repository.FournisseurRepository;
 import com.gestion.stock.services.FournisseurService;
 import com.gestion.stock.utils.ErrorCodes;
+import com.gestion.stock.utils.StateEnum;
 import com.gestion.stock.validator.FournisseurValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class FournisseurServiceImpl implements FournisseurService {
             return null;
         }
         return this.fournisseurRepository
-                .findByIdAndState_Active(id)
+                .findByIdAndState(id, StateEnum.ACTIVE)
                 .map(this::mapToFournisseurDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun fournisseur avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.FOURNISSEUR_NOT_FOUND)

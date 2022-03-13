@@ -7,6 +7,7 @@ import com.gestion.stock.model.Utilisateur;
 import com.gestion.stock.repository.UtilisateurRepository;
 import com.gestion.stock.services.UtilisateurService;
 import com.gestion.stock.utils.ErrorCodes;
+import com.gestion.stock.utils.StateEnum;
 import com.gestion.stock.validator.UtilisateurValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             return null;
         }
         return this.utilisateurRepository
-                .findByIdAndState_Active(id)
+                .findByIdAndState(id, StateEnum.ACTIVE)
                 .map(this::mapToUtilisateurDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun utilisateur avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.FOURNISSEUR_NOT_FOUND)

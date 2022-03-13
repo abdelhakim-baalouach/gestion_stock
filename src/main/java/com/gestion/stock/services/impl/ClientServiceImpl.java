@@ -7,6 +7,7 @@ import com.gestion.stock.model.Client;
 import com.gestion.stock.repository.ClientRepository;
 import com.gestion.stock.services.ClientService;
 import com.gestion.stock.utils.ErrorCodes;
+import com.gestion.stock.utils.StateEnum;
 import com.gestion.stock.validator.ClientValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ClientServiceImpl implements ClientService {
             return null;
         }
         return this.clientRepository
-                .findByIdAndState_Active(id)
+                .findByIdAndState(id, StateEnum.ACTIVE)
                 .map(this::mapToClientDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun client avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.CLIENT_NOT_FOUND)

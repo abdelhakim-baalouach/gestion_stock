@@ -7,6 +7,7 @@ import com.gestion.stock.model.Entreprise;
 import com.gestion.stock.repository.EntrepriseRepository;
 import com.gestion.stock.services.EntrepriseService;
 import com.gestion.stock.utils.ErrorCodes;
+import com.gestion.stock.utils.StateEnum;
 import com.gestion.stock.validator.EntrepriseValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class EntrepriseServiceImpl implements EntrepriseService {
             return null;
         }
         return this.entrepriseRepository
-                .findByIdAndState_Active(id)
+                .findByIdAndState(id, StateEnum.ACTIVE)
                 .map(this::mapToEntrepriseDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun entreprise avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.ENTREPRISE_NOT_FOUND)

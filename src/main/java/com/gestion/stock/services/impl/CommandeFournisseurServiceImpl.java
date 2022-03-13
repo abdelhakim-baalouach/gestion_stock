@@ -8,6 +8,7 @@ import com.gestion.stock.model.*;
 import com.gestion.stock.repository.*;
 import com.gestion.stock.services.CommandeFournisseurService;
 import com.gestion.stock.utils.ErrorCodes;
+import com.gestion.stock.utils.StateEnum;
 import com.gestion.stock.validator.CommandeFournisseurValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
     @Override
     public CommandeFournisseurDto save(CommandeFournisseurDto dto) {
         this.checkCommandeFournisseurDtoValid(dto);
-        Optional<Fournisseur> fournisseur = this.fournisseurRepository.findByIdAndState_Active(dto.getFournisseur().getId());
+        Optional<Fournisseur> fournisseur = this.fournisseurRepository.findByIdAndState(dto.getFournisseur().getId(), StateEnum.ACTIVE);
         if (fournisseur.isEmpty()) {
             log.warn("Fournisseur avec ID {} n'ete trouve dans la BDD", dto.getFournisseur().getId());
             throw new EntityNotFoundException("Aucun fournisseur avac l'ID = " +  dto.getFournisseur().getId() + " n'ete trouve dans la BDD", ErrorCodes.FOURNISSEUR_NOT_FOUND);
@@ -58,7 +59,7 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
             dto.getLigneCommandeFournisseurs()
                     .forEach(ligneCommandeFournisseurDto -> {
                         if (Objects.nonNull(ligneCommandeFournisseurDto.getArticle())) {
-                            Optional<Article> article = this.articleRepository.findByIdAndState_Active(ligneCommandeFournisseurDto.getArticle().getId());
+                            Optional<Article> article = this.articleRepository.findByIdAndState(ligneCommandeFournisseurDto.getArticle().getId(), StateEnum.ACTIVE);
                             if (article.isEmpty()) {
                                 articleErrors.add("L'article avec l'ID " + ligneCommandeFournisseurDto.getArticle().getId() + " n'existe pas");
                             }
@@ -99,7 +100,7 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
             return null;
         }
         return this.commandeFournisseurRepository
-                .findByIdAndState_Active(id)
+                .findByIdAndState(id, StateEnum.ACTIVE)
                 .map(this::mapToCommandeFournisseurDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun commande fournisseur avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.COMMANDE_FOURNISSEUR_NOT_FOUND)
@@ -113,7 +114,7 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
             return null;
         }
         return this.commandeFournisseurRepository
-                .findCommandeFournisseurByCodeAndState_Active(code)
+                .findCommandeFournisseurByCodeAndState(code, StateEnum.ACTIVE)
                 .map(this::mapToCommandeFournisseurDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun commande fournisseur avec le CODE = " + code + " n'ete trouve dans la BDD", ErrorCodes.COMMANDE_FOURNISSEUR_NOT_FOUND)

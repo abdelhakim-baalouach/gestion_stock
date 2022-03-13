@@ -7,6 +7,7 @@ import com.gestion.stock.model.Article;
 import com.gestion.stock.repository.ArticleRepository;
 import com.gestion.stock.services.ArticleService;
 import com.gestion.stock.utils.ErrorCodes;
+import com.gestion.stock.utils.StateEnum;
 import com.gestion.stock.validator.ArticleValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ArticleServiceImpl implements ArticleService {
             return null;
         }
         return this.articleRepository
-                .findByIdAndState_Active(id)
+                .findByIdAndState(id, StateEnum.ACTIVE)
                 .map(this::mapToArticleDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun article avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND)
@@ -57,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
             return null;
         }
         return this.articleRepository
-                .findArticleByCodeAndState_Active(code)
+                .findArticleByCodeAndState(code, StateEnum.ACTIVE)
                 .map(this::mapToArticleDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun article avec le CODE = " + code + " n'ete trouve dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND)

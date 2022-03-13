@@ -11,6 +11,7 @@ import com.gestion.stock.repository.LigneVenteRepository;
 import com.gestion.stock.repository.VentesRepository;
 import com.gestion.stock.services.VentesService;
 import com.gestion.stock.utils.ErrorCodes;
+import com.gestion.stock.utils.StateEnum;
 import com.gestion.stock.validator.VenteValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class VentesServiceImpl implements VentesService {
         List<String> articleErrors = new ArrayList<>();
 
         dto.getLigneVentes().forEach(ligneVenteDto -> {
-            Optional<Article> article = this.articleRepository.findByIdAndState_Active(ligneVenteDto.getArticle().getId());
+            Optional<Article> article = this.articleRepository.findByIdAndState(ligneVenteDto.getArticle().getId(), StateEnum.ACTIVE);
             if (article.isEmpty()) {
                 articleErrors.add("Aucun article avec l'ID " + ligneVenteDto.getArticle().getId() + " n'ete trouve dans la BDD");
             }
@@ -88,7 +89,7 @@ public class VentesServiceImpl implements VentesService {
             return null;
         }
         return this.ventesRepository
-                .findByIdAndState_Active(id)
+                .findByIdAndState(id, StateEnum.ACTIVE)
                 .map(this::mapToVentesDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun vente avec l'ID = " + id + " n'ete trouve dans la BDD", ErrorCodes.VENTE_NOT_FOUND)
@@ -102,7 +103,7 @@ public class VentesServiceImpl implements VentesService {
             return null;
         }
         return this.ventesRepository
-                .findVentesByCodeAndState_Active(code)
+                .findVentesByCodeAndState(code, StateEnum.ACTIVE)
                 .map(this::mapToVentesDto)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Aucun vente avec le CODE = " + code + " n'ete trouve dans la BDD", ErrorCodes.VENTE_NOT_FOUND)
